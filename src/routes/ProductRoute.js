@@ -1,0 +1,40 @@
+import express from "express";
+import {
+  createProduct,
+  getProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct
+} from "../controllers/productController.js";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../config/cloudinary.js";
+import multer from "multer";
+
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "ecommerce-products",
+    allowed_formats: ["jpg", "png", "jpeg"],
+  },
+});
+const upload = multer({ storage });
+
+
+const router = express.Router();
+// Create product
+router.post("/", upload.array("images",5), createProduct);
+
+// Get all products
+router.get("/", getProducts);
+
+// Get product by ID
+router.get("/:id", getProductById);
+
+// Update product
+router.put("/:id", updateProduct);
+
+// Delete product
+router.delete("/:id", deleteProduct);
+
+export default router;

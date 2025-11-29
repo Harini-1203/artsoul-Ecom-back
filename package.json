@@ -1,0 +1,32 @@
+{
+  "name": "mern-app-backend",
+  "version": "1.0.0",
+  "description": "Backend for the MERN application",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.10",
+    "razorpay": "^2.9.6"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "nodemon": "^2.0.4",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  },
+  "author": "",
+  "license": "ISC"
+}
