@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "mern-app-backend",
   "version": "1.0.0",
   "description": "Backend for the MERN application",
