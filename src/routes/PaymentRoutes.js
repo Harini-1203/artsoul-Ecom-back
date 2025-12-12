@@ -59,9 +59,6 @@ router.post("/verify", authMiddleware, async (req, res) => {
       totalAmount,
       paymentId: razorpay_payment_id,
       orderId: razorpay_order_id,
-      paymentId:1,
-      orderId:1,
-
       paymentStatus: "Paid",
       orderStatus: "Processing",
       address,
