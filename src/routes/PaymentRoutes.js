@@ -34,31 +34,31 @@ router.post("/create-order", async (req, res) => {
 router.post("/verify", authMiddleware, async (req, res) => {
   try {
     const {
-      // razorpay_order_id,
-      // razorpay_payment_id,
-      // razorpay_signature,
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
       cartItems,
       totalAmount,
       address,
     } = req.body;
 
-    // const sign = razorpay_order_id + "|" + razorpay_payment_id;
-    // const expectedSign = crypto
-    //   .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-    //   .update(sign)
-    //   .digest("hex");
+    const sign = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSign = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(sign)
+      .digest("hex");
 
-    // if (expectedSign !== razorpay_signature) {
-    //   return res.status(400).json({ success: false, message: "Payment verification failed" });
-    // }
+    if (expectedSign !== razorpay_signature) {
+      return res.status(400).json({ success: false, message: "Payment verification failed" });
+    }
 
     // ✅ If verified — create order in DB
     const order = new Order({
       user: req.user.id,
       items: cartItems,
       totalAmount,
-      // paymentId: razorpay_payment_id,
-      // orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
+      orderId: razorpay_order_id,
       paymentId:1,
       orderId:1,
 
