@@ -13,6 +13,7 @@ router.post("/create-order", async (req, res) => {
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
+    console.log("Creating order with amount:", process.env.RAZORPAY_KEY_ID);
 
     const options = {
       amount: Math.round(req.body.amount * 100), // ensure integer paise
