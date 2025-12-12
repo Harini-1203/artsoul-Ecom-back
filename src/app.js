@@ -21,24 +21,13 @@ import wishlistRoutes from "./routes/wishlistRoutes.js";
 const app = express();
 
 // Middleware
-const allowedOrigins = [
-  "https://theartsoul.vercel.app", // production
-  "http://localhost:5173",         // local dev
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like Postman)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // allow cookies / auth headers
+    origin: [
+      "http://localhost:5173",
+      "https://theartsoul.vercel.app"
+    ],
+    credentials: true,
   })
 );
 

@@ -13,15 +13,18 @@ router.post("/create-order", async (req, res) => {
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
-    console.log("Creating order with amount:", process.env.RAZORPAY_KEY_ID);
+    console.log("key:", process.env.RAZORPAY_KEY_ID);
 
     const options = {
       amount: Math.round(req.body.amount * 100), // ensure integer paise
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     };
-
+    console.log("Creating order with options:", options);
+    console.log("Razorpay instance:", instance);
+    
     const order = await instance.orders.create(options);
+    console.log("Creating order...",order);
     // return wrapped for frontend compatibility
     res.json({ order });
   } catch (error) {
@@ -63,6 +66,7 @@ router.post("/verify", authMiddleware, async (req, res) => {
       orderStatus: "Processing",
       address,
     });
+    console.log("Order created backend:", order);
 
     await order.save();
     res.json({ success: true, message: "Payment verified and order created", order });
