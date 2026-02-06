@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json()); 
 
 // Database connection
-dbConfig();
+
 
 
 app.use("/uploads", express.static("uploads"));
@@ -62,4 +62,5 @@ app.use("/api/admin/orders", adminOrderRoutes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    dbConfig();
 });
