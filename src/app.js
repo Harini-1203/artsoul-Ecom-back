@@ -38,6 +38,9 @@ app.use(express.json());
 // Database connection
 dbConfig();
 
+
+app.use("/uploads", express.static("uploads"));
+
 // Routes
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);

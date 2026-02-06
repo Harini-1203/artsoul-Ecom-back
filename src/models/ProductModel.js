@@ -5,11 +5,11 @@ const ProductSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   images: [String],
   category: String,
+  sizes: [String],
   attributes: {
     type: Map,
     of: mongoose.Schema.Types.Mixed,
   },
-  sizes: [String],
   stock: { type: Number, default: 0 },
   rating: Number,
   reviews: [

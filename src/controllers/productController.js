@@ -1,25 +1,40 @@
 import Product from "../models/ProductModel.js";
 
 // Create a new product
+
 export const createProduct = async (req, res) => {
   try {
-    const { name, price, description, category, attributes } = req.body;
-    
-    // Get Cloudinary URLs from multer-storage-cloudinary
-    const imageUrls = req.files.map((file) => file.path);
+    console.log("🟢 createProduct hit");
 
-    const product = new Product({
+    const {
       name,
       price,
       description,
       category,
-      attributes: JSON.parse(attributes), // Comes from formData
+      stock,
+      sizes,
+      attributes,
+    } = req.body;
+
+    const imageUrls = req.files.map(file => file.path);
+
+    const product = new Product({
+      name,
+      price: Number(price),
+      description,
+      category,
+      stock: Number(stock) || 0,
+      sizes: sizes ? JSON.parse(sizes) : [],
+      attributes: attributes ? JSON.parse(attributes) : {},
       images: imageUrls,
     });
 
     await product.save();
+
+    console.log("💾 Product saved");
     res.status(201).json(product);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };

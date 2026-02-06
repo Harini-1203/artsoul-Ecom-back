@@ -6,19 +6,8 @@ import {
   updateProduct,
   deleteProduct
 } from "../controllers/productController.js";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../config/cloudinary.js";
-import multer from "multer";
+import { upload } from "../config/multer.js";
 
-
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "ecommerce-products",
-    allowed_formats: ["jpg", "png", "jpeg"],
-  },
-});
-const upload = multer({ storage });
 
 
 const router = express.Router();

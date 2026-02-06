@@ -68,10 +68,22 @@ router.post("/verify", authMiddleware, async (req, res) => {
     }
 
     // ✅ If verified — create order in DB
+    const normalizedItems = (cartItems || []).map((it) => {
+      // cart item can be in shape { product: {...}, qty } or { _id, name, qty, price }
+      const prod = it.product || {};
+      return {
+        _id: prod._id || it._id,
+        name: prod.name || it.name,
+        qty: it.qty || prod.qty || 1,
+        price: prod.price || it.price || 0,
+        image: prod.images?.[0] || it.image || "",
+      };
+    });
+
     const orderData = {
       // include both keys to match schema naming (some schemas expect `userId`)
       userId: req.user?.id || req.user?._id || undefined,
-      items: cartItems,
+      items: normalizedItems,
       totalAmount,
       paymentId: razorpay_payment_id,
       orderId: razorpay_order_id,
